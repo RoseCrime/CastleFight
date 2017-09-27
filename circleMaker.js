@@ -71,37 +71,37 @@ function MakeCircle(clicked, castle) {
         this.speed = 0.3 * this.mult;
     }
 
-    this.visuals = function() {
+    this.visuals = function () {
         stroke(0);
         fill(this.color);
         ellipse(this.x, this.y, 15, 15);
     }
 
-    this.moveRight = function() {
+    this.moveRight = function () {
         if (this.moves === true)
             this.x += this.speed;
     }
-    this.moveLeft = function() {
+    this.moveLeft = function () {
         if (this.moves === true)
             this.x -= this.speed;
     }
 
-    this.resetTarget = function() {
+    this.resetTarget = function () {
         this.min = 0;
         this.minDist = 500;
         this.closestEnemy = undefined;
     }
 
-    this.attack = function() {
+    this.attack = function () {
         this.attacks = true;
         this.moves = false;
 
     }
-    this.keepMoving = function() {
+    this.keepMoving = function () {
         this.moves = true;
         this.attacks = false;
     }
-    this.dealDamage = function() {
+    this.dealDamage = function () {
         if (this.closestEnemy) {
             line(this.x, this.y, this.closestEnemy.x, this.closestEnemy.y);
             this.closestEnemy.health = this.closestEnemy.health - this.damage;

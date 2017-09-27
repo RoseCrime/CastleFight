@@ -1,4 +1,8 @@
+var difficulty;
+var multiplier;
+
 function choiseDiff() {
+    stroke(255);
 
     fill(100, 255, 220);
     textSize(50);

@@ -1,6 +1,4 @@
 var finished = false;
-var difficulty;
-var multiplier;
 
 function setup() {
     createCanvas(800, 300);
@@ -13,15 +11,18 @@ function draw() {
         choiseDiff();
     } else if (difficulty && multiplier) {
         drawSketch();
+        if (frameCount % floor(5 * frameRate()) == 0)
+            gainMoney();
     }
 }
+
 
 function setupSketch() {
     setCoins();
     setCastles();
     towerMaker();
     strokeWeight(2);
-    window.moneyInt = setInterval(gainMoney, 5000);
+
 }
 
 function drawSketch() {
@@ -34,7 +35,7 @@ function drawSketch() {
     towerRefresher();
     panelRefresher();
 
-    EnemyCircleMaker(castle2);
+    EnemyCircleMaker();
 
 
     for (i = 0; i < myCircles.length; i++) {
@@ -63,7 +64,7 @@ function stop() {
         enemyCircles[i].speed = 0;
     }
     income = 0;
-    clearInterval(moneyInt);
+
 }
 
 function reset() {

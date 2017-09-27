@@ -58,7 +58,7 @@ function pvp() {
                     enemyCircles[j].keepMoving();
                     myCircles.splice(i, 1);
                     enemyCircles[j].closestEnemy = 0;
-                    coins += 100;
+                    enemyCoins+= 100;
                 }
             }
         }
@@ -109,7 +109,7 @@ function towerfight() {
 
                     if (myCircles[j].health <= 0) {
                         myCircles.splice(j, 1);
-                        coins += 100;
+                        enemyCoins += 100;
                     }
                 }
             }

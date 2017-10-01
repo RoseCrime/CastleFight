@@ -3,7 +3,6 @@ function pvp() {
     for (i = 0; i < myCircles.length; i++) {
         myCircles[i].keepMoving();
         myCircles[i].resetTarget();
-        stroke(0, 255, 100);
         if (enemyTowers[0] && abs(myCircles[i].x - enemyTowers[0].x) <= myCircles[i].range) {
             myCircles[i].closestEnemy = enemyTowers[0];
             myCircles[i].attack();
@@ -38,7 +37,6 @@ function pvp() {
     for (j = 0; j < enemyCircles.length; j++) {
         enemyCircles[j].resetTarget();
         enemyCircles[j].keepMoving();
-        stroke(255, 0, 100);
         if (myTowers[0] && abs(enemyCircles[j].x - myTowers[0].x) <= enemyCircles[j].range) {
             enemyCircles[j].closestEnemy = myTowers[0];
             enemyCircles[j].attack();
@@ -58,7 +56,7 @@ function pvp() {
                     enemyCircles[j].keepMoving();
                     myCircles.splice(i, 1);
                     enemyCircles[j].closestEnemy = 0;
-                    enemyCoins+= 100;
+                    enemyCoins += 100;
                 }
             }
         }

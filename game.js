@@ -2,18 +2,18 @@ var finished = false;
 
 function setup() {
     createCanvas(800, 300);
+    rectMode(CENTER);
+    textAlign(CENTER);
+    textStyle(ITALIC);
+
     setupSketch();
+    diffOptionsMaker();
 }
 
 function draw() {
     background(50, 150, 200);
-    if (!difficulty) {
-        choiseDiff();
-    } else if (difficulty && multiplier) {
-        drawSketch();
-        if (frameCount % floor(5 * frameRate()) == 0)
-            gainMoney();
-    }
+    diffStage();
+    gameStage();
 }
 
 
@@ -21,50 +21,37 @@ function setupSketch() {
     setCoins();
     setCastles();
     towerMaker();
-    strokeWeight(2);
-
 }
 
-function drawSketch() {
-    castle1.refresh();
-    castle1.healthDisplay();
-    diffPanel();
-    castle2.refresh();
-    castle2.healthDisplay();
+function gameStage() {
+    if (difficulty) {
+        castle1.refresh();
+        castle1.healthDisplay();
 
-    towerRefresher();
-    panelRefresher();
+        castle2.refresh();
+        castle2.healthDisplay();
 
-    EnemyCircleMaker();
+        towerRefresher();
+
+        setPanels();
+
+        EnemyCircleMaker();
 
 
-    for (i = 0; i < myCircles.length; i++) {
-        myCircles[i].visuals();
-        myCircles[i].moveRight();
+        for (i = 0; i < myCircles.length; i++) {
+            myCircles[i].visuals();
+            myCircles[i].moveRight();
+        }
+
+        for (i = 0; i < enemyCircles.length; i++) {
+            enemyCircles[i].visuals();
+            enemyCircles[i].moveLeft();
+        }
+        gainMoney();
+        pvp();
+        towerfight();
+        endGameStage();
     }
-
-    for (i = 0; i < enemyCircles.length; i++) {
-        enemyCircles[i].visuals();
-        enemyCircles[i].moveLeft();
-    }
-    pvp();
-    towerfight();
-    gameEnded();
-}
-
-
-function stop() {
-    //goes into interface gameEnd function;
-    for (i = 0; i < myCircles.length; i++) {
-        myCircles[i].damage = 0;
-        myCircles[i].speed = 0;
-    }
-    for (i = 0; i < enemyCircles.length; i++) {
-        enemyCircles[i].damage = 0;
-        enemyCircles[i].speed = 0;
-    }
-    income = 0;
-
 }
 
 function reset() {
@@ -76,5 +63,5 @@ function reset() {
     castle2 = null;
     finished = false;
     setupSketch();
-    drawSketch();
+    gameStage();
 }

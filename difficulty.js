@@ -1,76 +1,108 @@
-var difficulty;
-var multiplier;
+let difficulty;
+let multiplier;
+let diffOptions = [];
+let choise;
+let madeBy;
 
-function choiseDiff() {
-    stroke(255);
+function diffOptionsMaker() {
 
-    fill(100, 255, 220);
-    textSize(50);
-    text('Game Made by RoseCrime', 100, height - 5);
+    diffOptions.push(new DiffBlock('Easy', 2 / 10 * width, 4 / 10 * height, 25, color(144, 251, 114), color(0), true, true));
 
-    fill(144, 251, 114);
-    text('Easy', 40, 100);
-    fill(144, 251, 114, 70);
-    rect(20, 58, 147.5, 55);
+    diffOptions.push(new DiffBlock('Medium', width / 2, 4 / 10 * height, 25, color(0, 92, 247), color(0), true, true));
+    diffOptions.push(new DiffBlock('Hard', 8 / 10 * width, 4 / 10 * height, 25, color(247, 0, 0), color(0), true, true));
+    diffOptions.push(new DiffBlock('Impossible', width / 2, 7 / 10 * height, 25, color(0), color(255, 100, 100), true, true));
 
-    fill(0, 92, 247);
-    text('Medium', 319, 100);
-    fill(111, 163, 250, 70);
-    rect(299, 58, 214, 55);
+    diffTitle = new DiffBlock('Choise Difficulty:', width / 2, 1 / 10 * height, 25, color(255, 215, 0), color(0), true);
+    madeBy = new DiffBlock('Game Made by RoseCrime', width / 2, 9.5 / 10 * height, 25, color(100, 220, 100), color(0), true);
 
-    fill(247, 0, 0);
-    text('Hard', 650, 100);
-    fill(252, 146, 146, 70);
-    rect(630, 58, 148, 55);
-
-    fill(0);
-    text('Impossible', 285.5, 200);
-    fill(100, 0, 0, 70);
-    rect(265.5, 158, 277.5, 55);
-
-    if (mouseX >= 20 && mouseX <= 167.5 && mouseY >= 58 && mouseY <= 113) {
-        line(40, 105, 20 + 130, 105);
-        if (mouseIsPressed) {
-            difficulty = 'Easy';
-            setDiff();
-            reset();
+    for (i = 0; i < diffOptions.length; i++) {
+        diffOptions[i].choiseDiff = function() {
+            if (this.mouseInArea) {
+                if (mouseIsPressed) {
+                    difficulty = this.txt;
+                    setDiff();
+                    reset();
+                }
+            }
         }
-    } else if (mouseX >= 299 && mouseX <= 299 + 214 && mouseY >= 58 && mouseY <= 58 + 55) {
-        if (mouseIsPressed) {
-            difficulty = 'Medium';
-            setDiff();
-            reset();
+}
+
+
+function diffStage() {
+    if (!difficulty) {
+
+        for (i = 0; i < diffOptions.length; i++) {
+            textSize(25);
+            strokeWeight(3);
+
+            diffOptions[i].show();
+
+            diffOptions[i].choiseDiff();
         }
-        line(299 + 20, 105, 299 + 214 - 20, 105);
-    } else if (mouseX >= 630 && mouseX <= 630 + 148 && mouseY >= 58 && mouseY <= 58 + 55) {
-        if (mouseIsPressed) {
-            difficulty = 'Hard';
-            setDiff();
-            reset();
-        }
-        line(630 + 20, 105, 630 + 148 - 20, 105);
-    } else if (mouseX >= 265.5 && mouseX <= 265.5 + 277.5 && mouseY >= 158 && mouseY <= 158 + 55) {
-        if (mouseIsPressed) {
-            difficulty = 'Impossible';
-            setDiff();
-            reset();
-        }
-        line(265.5 + 20, 158 + 55 - 7, 265.5 + 277.5 - 20, 158 + 55 - 7);
-        fill(255, 0, 0);
-        textSize(30);
-        text('WHO ARE YOU TRYING TO IMPRESS?', 140, 250);
+        diffTitle.show();
+        madeBy.show();
+        strokeWeight(2);
     }
 }
 
 
 function setDiff() {
-    if (difficulty == 'Easy') {
+    if (difficulty == "Easy") {
         multiplier = 0.75;
-    } else if (difficulty == 'Medium') {
+    } else if (difficulty == "Medium") {
         multiplier = 1.0;
-    } else if (difficulty == 'Hard') {
+    } else if (difficulty == "Hard") {
         multiplier = 1.25
-    } else if (difficulty == 'Impossible') {
+    } else if (difficulty == "Impossible") {
         multiplier = 1.5;
+    }
+}
+
+function DiffBlock(txt, x, y, size, color, str, block = null, hover = null) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.stroke = str;
+    this.size = size;
+
+    this.hover = hover;
+    this.block = block;
+
+    this.txt = txt;
+
+    this.txtSize = size;
+    textSize(this.txtSize);
+
+    this.txtWidth = textWidth(this.txt);
+
+    this.show = function() {
+
+        fill(this.color);
+        stroke(this.stroke);
+
+        if (this.hover) {
+
+            this.mouseInArea = (
+                (mouseX <= (this.x + (this.txtWidth / 2))) &&
+                (mouseX >= (this.x - (this.txtWidth / 2))) &&
+                (mouseY <= (this.y + (this.txtSize / 2))) &&
+                (mouseY >= (this.y - (this.txtSize / 2)))
+            )
+
+
+            if (this.mouseInArea) {
+                fill(0);
+                stroke(255);
+                line(this.x - 1 / 2 * this.txtWidth, this.y + this.txtSize, this.x + 1 / 2 * this.txtWidth, this.y + this.txtSize);
+            }
+        }
+        text(this.txt, this.x, this.y, this.txtWidth * 1.1, this.txtSize);
+
+        if (this.block) {
+            stroke(255);
+            noFill();
+            rect(this.x, this.y, this.txtWidth * 1.5, this.txtSize * 1.5);
+        }
+
     }
 }

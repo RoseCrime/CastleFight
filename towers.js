@@ -1,5 +1,5 @@
-var myTowers = [];
-var enemyTowers = [];
+let myTowers = [];
+let enemyTowers = [];
 
 function Tower(x, y) {
     this.x = x;
@@ -8,7 +8,6 @@ function Tower(x, y) {
     this.health = 50000;
 
     this.healthbarSize = 50;
-    map(this.health, 0, 50000, 0, 50);
 
     this.range = 200;
     this.damage = 50;
@@ -17,17 +16,16 @@ function Tower(x, y) {
     this.closestEnemy = null;
 
     this.refresh = function() {
-        rectMode(CENTER);
-        stroke(0);
         fill(255);
         ellipse(this.x, this.y, this.towerSize, this.towerSize);
     }
     this.healthDisplay = function() {
-        stroke(0);
         fill(255, 0, 0);
         rect(this.x, this.y + this.towerSize, this.healthbarSize, 10);
+        this.healthbarSize = map(this.health, 0, 50000, 0, 50);
     }
     this.dealDamage = function() {
+        stroke(255,0,255);
         line(this.x, this.y, this.closestEnemy.x, this.closestEnemy.y);
         this.closestEnemy.health -= this.damage;
     }
@@ -52,7 +50,6 @@ function towerRefresher() {
     for (i = 0; i < myTowers.length; i++) {
         myTowers[i].refresh();
         myTowers[i].healthDisplay();
-        myTowers[i].healthbarSize = map(myTowers[i].health, 0, 50000, 0, 50);
         if (myTowers[0].health <= 0) {
             myTowers.splice(i, 1);
             enemyCoins += 1000;
@@ -61,7 +58,6 @@ function towerRefresher() {
     for (i = 0; i < enemyTowers.length; i++) {
         enemyTowers[i].refresh();
         enemyTowers[i].healthDisplay();
-        enemyTowers[i].healthbarSize = map(enemyTowers[i].health, 0, 50000, 0, 50);
         if (enemyTowers[i].health <= 0) {
             enemyTowers.splice(i, 1);
             coins += 1000;

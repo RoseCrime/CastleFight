@@ -1,44 +1,42 @@
-var clicked;
-var myCircles = [];
-var enemyCircles = [];
-var options = ['Tank', 'DD', 'Ranged', 'Mix'];
-this.moves = true;
-this.attacks = false;
+let clicked;
+let myCircles = [];
+let enemyCircles = [];
+let options = ['Tank', 'Damage', 'Ranged', 'Mix'];
 
-this.min = 0;
-this.minDist = 500;
-this.closestEnemy = undefined;
 
 function circleMaker(mouseX, mouseY) {
 
     if (coins >= 150) {
-        if (mouseX >= 25 && mouseX <= 25 + 40) {
+        if (mouseX > 30 && mouseX < 70) {
             clicked = 'Tank';
             myCircles.push(new MakeCircle(clicked, castle1));
+            coins -= 150;
 
-        } else if (mouseX >= 25 + 40 + 5 && mouseX <= 30 + 40 * 2) {
-            clicked = 'DD';
+        } else if (mouseX > 75 && mouseX < 115) {
+            clicked = 'Damage';
             myCircles.push(new MakeCircle(clicked, castle1));
+            coins -= 150;
 
-        } else if (mouseX >= 30 + 40 * 2 + 5 && mouseX <= 35 + 40 * 3) {
+        } else if (mouseX > 120 && mouseX < 160) {
             clicked = 'Ranged';
             myCircles.push(new MakeCircle(clicked, castle1));
+            coins -= 150;
 
-        } else if (mouseX >= 35 + 40 * 3 + 5 && mouseX <= 40 + 40 * 4) {
+        } else if (mouseX > 165 && mouseX < 205) {
             clicked = 'Mix';
             myCircles.push(new MakeCircle(clicked, castle1));
+            coins -= 150;
         }
-        coins -= 150;
     }
 }
-
 
 function MakeCircle(clicked, castle) {
     if (castle === castle2) {
         this.mult = multiplier;
+        this.attackColor = color(255, 0, 0);
     } else if (castle === castle1) {
         this.mult = 1;
-
+        this.attackColor = color(0, 255, 0);
     }
 
     this.x = castle.x;
@@ -50,7 +48,7 @@ function MakeCircle(clicked, castle) {
         this.damage = 5 * this.mult;
         this.range = 20;
         this.speed = 0.3 * this.mult;
-    } else if (clicked === 'DD') {
+    } else if (clicked === 'Damage') {
         this.color = color(0, 255, 0);
         this.health = 3000 * this.mult;
         this.damage = 50 * this.mult;
@@ -71,39 +69,49 @@ function MakeCircle(clicked, castle) {
         this.speed = 0.3 * this.mult;
     }
 
-    this.visuals = function () {
-        stroke(0);
+    this.visuals = function() {
         fill(this.color);
         ellipse(this.x, this.y, 15, 15);
     }
 
-    this.moveRight = function () {
+    this.moveRight = function() {
         if (this.moves === true)
             this.x += this.speed;
     }
-    this.moveLeft = function () {
+    this.moveLeft = function() {
         if (this.moves === true)
             this.x -= this.speed;
     }
 
-    this.resetTarget = function () {
+    this.resetTarget = function() {
         this.min = 0;
         this.minDist = 500;
-        this.closestEnemy = undefined;
+        this.closestEnemy = null;
     }
 
-    this.attack = function () {
+    this.attack = function() {
         this.attacks = true;
         this.moves = false;
 
     }
-    this.keepMoving = function () {
+    this.keepMoving = function() {
         this.moves = true;
         this.attacks = false;
     }
-    this.dealDamage = function () {
+    this.dealDamage = function() {
         if (this.closestEnemy) {
-            line(this.x, this.y, this.closestEnemy.x, this.closestEnemy.y);
+            noFill();
+            stroke(this.attackColor);
+
+            beginShape();
+
+            curveVertex(this.x, this.y + 300);
+            curveVertex(this.x, this.y);
+            curveVertex(this.closestEnemy.x, this.closestEnemy.y);
+            curveVertex(this.closestEnemy.x, this.closestEnemy.y - 300);
+
+            endShape();
+
             this.closestEnemy.health = this.closestEnemy.health - this.damage;
         } else
             this.keepMoving();

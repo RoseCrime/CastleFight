@@ -36,12 +36,12 @@ function Tower(x, y) {
     }
 }
 
-function towerMaker() {
-    myTowers.push(new Tower(200, 150 - 1 / 2 * 25 + 3));
-    myTowers.push(new Tower(200, 50 + 1 / 2 * 25 - 3));
+function setTowers() {
+    myTowers.push(new Tower(200, 150));
+    myTowers.push(new Tower(200, 50));
 
-    enemyTowers.push(new Tower(600, 150 - 1 / 2 * 25 + 3));
-    enemyTowers.push(new Tower(600, 50 + 1 / 2 * 25 - 3));
+    enemyTowers.push(new Tower(600, 150));
+    enemyTowers.push(new Tower(600, 50));
 
 }
 

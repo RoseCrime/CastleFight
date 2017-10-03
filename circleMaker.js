@@ -9,28 +9,28 @@ function circleMaker(mouseX, mouseY) {
     if (coins >= 150) {
         if (mouseX > 30 && mouseX < 70) {
             clicked = 'Tank';
-            myCircles.push(new MakeCircle(clicked, castle1));
+            myCircles.push(new Circle(clicked, castle1));
             coins -= 150;
 
         } else if (mouseX > 75 && mouseX < 115) {
             clicked = 'Damage';
-            myCircles.push(new MakeCircle(clicked, castle1));
+            myCircles.push(new Circle(clicked, castle1));
             coins -= 150;
 
         } else if (mouseX > 120 && mouseX < 160) {
             clicked = 'Ranged';
-            myCircles.push(new MakeCircle(clicked, castle1));
+            myCircles.push(new Circle (clicked, castle1));
             coins -= 150;
 
         } else if (mouseX > 165 && mouseX < 205) {
             clicked = 'Mix';
-            myCircles.push(new MakeCircle(clicked, castle1));
+            myCircles.push(new Circle(clicked, castle1));
             coins -= 150;
         }
     }
 }
 
-function MakeCircle(clicked, castle) {
+function Circle(clicked, castle) {
     if (castle === castle2) {
         this.mult = multiplier;
         this.attackColor = color(255, 0, 0);
@@ -122,10 +122,10 @@ function EnemyCircleMaker() {
     this.x = castle2.x + castle2.size;
     this.y = castle2.y + castle2.size / 2;
     if (difficulty != 'Impossible' && difficulty != 'Hard' && enemyCoins >= 150) {
-        enemyCircles.push(new MakeCircle(random(options), castle2));
+        enemyCircles.push(new Circle(random(options), castle2));
         enemyCoins -= 150;
     } else if (enemyCoins >= 100) {
-        enemyCircles.push(new MakeCircle(random(options), castle2));
+        enemyCircles.push(new Circle(random(options), castle2));
         enemyCoins -= 100;
     }
 }

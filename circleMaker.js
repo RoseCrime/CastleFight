@@ -69,9 +69,9 @@ class Circle {
             this.speed = 0.3 * this.mult
         }
     }
-    visuals() {
+    show() {
         fill(this.color)
-        ellipse(this.x, this.y, 15, 15)
+        ellipse(this.x, this.y, 15)
     }
 
     moveRight() {

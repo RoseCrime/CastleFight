@@ -9,7 +9,7 @@ const endGameStage = () => {
         text('Victory!', width / 2, 175)
         finished = true
     }
-    if (finished == true) {
+    if (finished === true) {
         textSize(100)
         fill(0)
         noStroke()
@@ -37,14 +37,15 @@ const endGameStage = () => {
         income = 0
         coins = 0
         enemyCoins = 0
-    }
-    if (mouseIsClicked) {
-        if (mouseX >= 295 &&
-            mouseX < 295 + 500 &&
-            mouseY >= 215 &&
-            mouseY <= 215 + 80) {
-            difficulty = null
-            reset()
+
+        if (mouseIsClicked) {
+            if (mouseX >= 295 &&
+                mouseX < 295 + 500 &&
+                mouseY >= 215 &&
+                mouseY <= 215 + 80) {
+                difficulty = null
+                reset()
+            }
         }
     }
 }

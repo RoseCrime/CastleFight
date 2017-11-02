@@ -17,7 +17,6 @@ function draw() {
     diffStage()
     gameStage()
     endGameStage()
-
     mouseIsClicked = false
     frameCounter++
 }

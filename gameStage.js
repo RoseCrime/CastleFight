@@ -12,11 +12,11 @@ const gameStage = () => {
         EnemyCircleMaker()
 
         myCircles.forEach((item, i, array) => {
-            array[i].visuals()
+            array[i].show()
             array[i].moveRight()
         })
         enemyCircles.forEach((item, i, array) => {
-            array[i].visuals()
+            array[i].show()
             array[i].moveLeft()
         })
 
@@ -42,19 +42,19 @@ const setPanels = () => {
     rect(117.5, 250, 180, 50)
 
     fill(50, 100, 200)
-    ellipse(50, 250, 40, 40)
+    ellipse(50, 250, 40)
     text('tank', 50, 295)
 
     fill(0, 255, 0)
-    ellipse(95, 250, 40, 40)
+    ellipse(95, 250, 40)
     text('Damage', 95, 295)
 
     fill(255, 0, 0)
-    ellipse(140, 250, 40, 40)
+    ellipse(140, 250, 40)
     text('Range', 140, 295)
 
     fill(255, 215, 0)
-    ellipse(185, 250, 40, 40)
+    ellipse(185, 250, 40)
     text('Mix', 185, 295)
     textSize(20)
     if (coins >= 150) {
@@ -102,7 +102,7 @@ const pvp = () => {
                     if (enemyCircles[j].health <= 0) {
                         myCircles[i].keepMoving()
                         enemyCircles.splice(j, 1)
-                        myCircles[i].closestEnemy = 0
+                        myCircles[i].resetTarget()
                         coins += 100
                     }
                 }
@@ -136,7 +136,7 @@ const pvp = () => {
                     if (myCircles[i].health <= 0) {
                         enemyCircles[j].keepMoving()
                         myCircles.splice(i, 1)
-                        enemyCircles[j].closestEnemy = 0
+                        myCircles[i].resetTarget()
                         enemyCoins += 100
                     }
                 }

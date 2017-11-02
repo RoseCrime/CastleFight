@@ -17,7 +17,7 @@ class Tower {
 
     refresh() {
         fill(255)
-        ellipse(this.x, this.y, this.towerSize, this.towerSize)
+        ellipse(this.x, this.y, this.towerSize)
     }
     healthDisplay() {
         fill(255, 0, 0)
@@ -62,5 +62,4 @@ const towerRefresher = () => {
             enemyCoins += 1000
         }
     })
-
 }

@@ -1,7 +1,5 @@
-let difficulty
-let multiplier
+let difficulty,multiplier
 let diffOptions = []
-
 let txt, txtSize, txtWidth, x, y
 
 const diffOptionsMaker = () => {

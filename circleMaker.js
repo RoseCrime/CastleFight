@@ -41,7 +41,7 @@ class Circle {
 
         this.x = castle.x
         this.y = castle.y
-        
+
         if (clicked === 'Tank') {
             this.color = color(50, 100, 200)
             this.health = 50000 * this.mult
@@ -82,11 +82,11 @@ class Circle {
         if (this.moves === true)
             this.x -= this.speed
     }
-
     resetTarget() {
-        this.min = 0
+        this.target = null
         this.minDist = 500
-        this.closestEnemy = null
+        this.min = 0
+
     }
 
     attack() {
@@ -99,7 +99,7 @@ class Circle {
         this.attacks = false
     }
     dealDamage() {
-        if (this.closestEnemy) {
+        if (this.target) {
             noFill()
             stroke(this.attackColor)
 
@@ -107,12 +107,12 @@ class Circle {
 
             curveVertex(this.x, this.y + 300)
             curveVertex(this.x, this.y)
-            curveVertex(this.closestEnemy.x, this.closestEnemy.y)
-            curveVertex(this.closestEnemy.x, this.closestEnemy.y - 300)
+            curveVertex(this.target.x, this.target.y)
+            curveVertex(this.target.x, this.target.y - 300)
 
             endShape()
 
-            this.closestEnemy.health = this.closestEnemy.health - this.damage
+            this.target.health -= this.damage
         }
     }
 

@@ -45,20 +45,20 @@ const setTowers = () => {
 }
 
 const towerRefresher = () => {
-    myTowers.forEach((item, i, array) => {
-        array[i].refresh()
-        array[i].healthDisplay()
-        if (array[i].health <= 0) {
-            array.splice(i, 1)
+    myTowers.forEach((myTower,i,myTowers) => {
+        myTower.refresh()
+        myTower.healthDisplay()
+        if (myTower.health <= 0) {
+            myTowers.splice(i, 1)
             enemyCoins += 1000
         }
     })
-    enemyTowers.forEach((item, i, array) => {
-        array[i].refresh()
-        array[i].healthDisplay()
+    enemyTowers.forEach((enemyTower, i, enemyTowers) => {
+        enemyTower.refresh()
+        enemyTower.healthDisplay()
 
-        if (array[i].health <= 0) {
-            array.splice(i, 1)
+        if (enemyTower.health <= 0) {
+            enemyTowers.splice(i, 1)
             enemyCoins += 1000
         }
     })

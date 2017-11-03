@@ -1,7 +1,7 @@
 const endGameStage = () => {
     textSize(150)
     if (castle1.health <= 0) {
-        fill(255, 100, 100)
+        fill(255, 150, 150)
         text('You lost', width / 2, 175)
         finished = true
     } else if (castle2.health <= 0) {
@@ -25,13 +25,13 @@ const endGameStage = () => {
         }
 
         //stop
-        myCircles.forEach((item, i, array) => {
-            array[i].damage = 0
-            array[i].speed = 0
+        myCircles.forEach((myCircle) => {
+            myCircle.damage = 0
+            myCircle.speed = 0
         })
-        enemyCircles.forEach((item, i, array) => {
-            array[i].damage = 0
-            array[i].speed = 0
+        enemyCircles.forEach((enemyCircle) => {
+            enemyCircle.damage = 0
+            enemyCircle.speed = 0
         })
 
         income = 0

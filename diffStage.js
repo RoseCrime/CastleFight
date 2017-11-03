@@ -43,9 +43,9 @@ const diffText = () => {
 const diffStage = () => {
     if (!difficulty) {
         diffText()
-        diffOptions.forEach((item, i, array) => {
-            diffOptions[i].show()
-            diffOptions[i].choiseDiff()
+        diffOptions.forEach((diffOption) => {
+            diffOption.show()
+            diffOption.choiseDiff()
         })
     }
 }

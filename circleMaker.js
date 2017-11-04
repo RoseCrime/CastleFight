@@ -34,9 +34,11 @@ class Circle {
         if (castle === castle2) {
             this.mult = multiplier
             this.attackColor = color(255, 0, 0)
+            this.owner = "rightSide"
         } else if (castle === castle1) {
             this.mult = 1
             this.attackColor = color(0, 255, 0)
+            this.owner = "leftSide"
         }
 
         this.x = castle.x
@@ -70,21 +72,28 @@ class Circle {
         }
     }
     show() {
+        stroke(0)
         fill(this.color)
         ellipse(this.x, this.y, 15)
     }
+    move() {
+        if (this.owner === "leftSide") {
+            if (this.moves === true)
+                this.x += this.speed
+        } else if (this.owner === "rightSide") {
+            if (this.moves === true)
+                this.x -= this.speed
+        }
+    }
+    keepMoving() {
+        this.moves = true
+        this.attacks = false
+    }
 
-    moveRight() {
-        if (this.moves === true)
-            this.x += this.speed
-    }
-    moveLeft() {
-        if (this.moves === true)
-            this.x -= this.speed
-    }
+
     resetTarget() {
         this.target = null
-        this.minDist = 500
+        this.minDist = 300
         this.min = 0
 
     }
@@ -92,11 +101,6 @@ class Circle {
     attack() {
         this.attacks = true
         this.moves = false
-
-    }
-    keepMoving() {
-        this.moves = true
-        this.attacks = false
     }
     dealDamage() {
         if (this.target) {
@@ -116,6 +120,65 @@ class Circle {
         }
     }
 
+    pvp() {
+        this.keepMoving()
+        this.resetTarget()
+
+        if (this.owner === "leftSide") {
+
+            let castleInRange = abs(this.x - castle2.x) <= this.range
+            let towerInRange = enemyTowers[0] && abs(this.x - enemyTowers[0].x) <= this.range
+            let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
+
+            enemyCircles.forEach((enemyCircle, j, enemyCircles) => {
+                this.min = abs(this.x - enemyCircle.x)
+                if (this.min < this.minDist) {
+                    this.minDist = this.min
+                    this.closestEnemy = enemyCircle
+                    if (enemyInRange) {
+                        this.target = this.closestEnemy
+                    }
+
+                }
+            })
+
+            if (towerInRange) {
+                this.target = enemyTowers[0]
+            } else if (!this.target && castleInRange) {
+                this.target = castle2
+            }
+            if (this.target) {
+                this.attack()
+                this.dealDamage()
+            }
+        } else if (this.owner === "rightSide") {
+            let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
+            let castleInRange = abs(this.x - castle1.x) <= this.range
+            let towerInRange = myTowers[0] && abs(this.x - myTowers[0].x) <= this.range
+
+            myCircles.forEach((myCircle, j, myCircles) => {
+                this.min = abs(this.x - myCircle.x)
+                if (this.min < this.minDist) {
+                    this.minDist = this.min
+                    this.closestEnemy = myCircle
+                    if (enemyInRange) {
+                        this.target = this.closestEnemy
+                    }
+
+                }
+            })
+            if (towerInRange) {
+                this.target = myTowers[0]
+            } else if (!this.target && castleInRange) {
+                this.target = castle1
+
+            }
+            if (this.target) {
+                this.attack()
+                this.dealDamage()
+            }
+        }
+    }
 }
 
 const EnemyCircleMaker = () => {
@@ -128,4 +191,26 @@ const EnemyCircleMaker = () => {
         enemyCircles.push(new Circle(random(options), castle2))
         enemyCoins -= 100
     }
+}
+const circleRefresher = () => {
+    myCircles.forEach((myCircle, i, myCircles) => {
+        myCircle.show()
+        myCircle.move()
+        myCircle.pvp()
+        if (myCircle.health <= 0) {
+            myCircles.splice(i, 1)
+            enemyCoins += 100
+
+        }
+    })
+    enemyCircles.forEach((enemyCircle, i, enemyCircles) => {
+        enemyCircle.show()
+        enemyCircle.move()
+        enemyCircle.pvp()
+        if (enemyCircle.health <= 0) {
+            enemyCircles.splice(i, 1)
+            coins += 100
+        }
+    })
+
 }

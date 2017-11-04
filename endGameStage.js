@@ -39,10 +39,10 @@ const endGameStage = () => {
         enemyCoins = 0
 
         if (mouseIsClicked) {
-            if (mouseX >= 295 &&
-                mouseX < 295 + 500 &&
-                mouseY >= 215 &&
-                mouseY <= 215 + 80) {
+            if ((mouseX >= 295) &&
+                (mouseX < 295 + 500) &&
+                (mouseY >= 215) &&
+                (mouseY <= 215 + 80)) {
                 difficulty = null
                 reset()
             }

@@ -26,10 +26,10 @@ function draw() {
 function reset() {
     myTowers = []
     enemyTowers = []
-    myCircles = []
-    enemyCircles = []
-    castle1 = null
-    castle2 = null
+    myUnits = []
+    enemyUnits = []
+    leftCastle = null
+    rightCastle = null
     finished = false
     coins = 400
     enemyCoins = 400

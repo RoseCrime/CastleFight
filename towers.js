@@ -3,9 +3,9 @@ let enemyTowers = []
 
 class Tower {
     constructor(x, y, castle) {
-        if (castle === castle2) {
+        if (castle === rightCastle) {
             this.owner = "rightSide"
-        } else if (castle === castle1) {
+        } else if (castle === leftCastle) {
             this.owner = "leftSide"
         }
         this.x = x
@@ -30,7 +30,6 @@ class Tower {
         let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
         stroke(255, 255, 0)
         if (enemyInRange) {
-
             line(this.x, this.y, this.closestEnemy.x, this.closestEnemy.y)
             this.closestEnemy.health -= this.damage
         }
@@ -43,25 +42,24 @@ class Tower {
 
     }
     pvp() {
-
         if (this.owner === "leftSide") {
             this.resetTarget()
-            enemyCircles.forEach((enemyCircle, j, enemyCircles) => {
-                this.min = abs(this.x - enemyCircle.x)
+            enemyUnits.forEach((enemyUnit, j, enemyUnits) => {
+                this.min = abs(this.x - enemyUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = enemyCircle
+                    this.closestEnemy = enemyUnit
                 }
             })
             this.dealDamage()
         }
         if (this.owner === "rightSide") {
             this.resetTarget()
-            myCircles.forEach((myCircle, j, myCircles) => {
-                this.min = abs(this.x - myCircle.x)
+            myUnits.forEach((myUnit, j, myUnits) => {
+                this.min = abs(this.x - myUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = myCircle
+                    this.closestEnemy = myUnit
                 }
             })
             this.dealDamage()
@@ -70,11 +68,10 @@ class Tower {
 }
 
 const setTowers = () => {
-    myTowers.push(new Tower(200, 150, castle1))
-    myTowers.push(new Tower(200, 50, castle1))
-    enemyTowers.push(new Tower(600, 150, castle2))
-    enemyTowers.push(new Tower(600, 50, castle2))
-
+    myTowers.push(new Tower(200, 150, leftCastle))
+    myTowers.push(new Tower(200, 50, leftCastle))
+    enemyTowers.push(new Tower(600, 150, rightCastle))
+    enemyTowers.push(new Tower(600, 50, rightCastle))
 }
 
 const towerRefresher = () => {

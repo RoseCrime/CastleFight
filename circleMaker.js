@@ -1,41 +1,41 @@
 let clicked
-let myCircles = []
-let enemyCircles = []
+let myUnits = []
+let enemyUnits = []
 const options = ['Tank', 'Damage', 'Ranged', 'Mix']
 
 
-const circleMaker = (mouseX, mouseY) => {
+const unitMaker = (mouseX, mouseY) => {
     if (coins >= 150) {
         if (mouseX > 30 && mouseX < 70) {
             clicked = 'Tank'
-            myCircles.push(new Circle(clicked, castle1))
+            myUnits.push(new Unit(clicked, leftCastle))
             coins -= 150
 
         } else if (mouseX > 75 && mouseX < 115) {
             clicked = 'Damage'
-            myCircles.push(new Circle(clicked, castle1))
+            myUnits.push(new Unit(clicked, leftCastle))
             coins -= 150
 
         } else if (mouseX > 120 && mouseX < 160) {
             clicked = 'Ranged'
-            myCircles.push(new Circle(clicked, castle1))
+            myUnits.push(new Unit(clicked, leftCastle))
             coins -= 150
 
         } else if (mouseX > 165 && mouseX < 205) {
             clicked = 'Mix'
-            myCircles.push(new Circle(clicked, castle1))
+            myUnits.push(new Unit(clicked, leftCastle))
             coins -= 150
         }
     }
 }
 
-class Circle {
+class Unit {
     constructor(clicked, castle) {
-        if (castle === castle2) {
+        if (castle === rightCastle) {
             this.mult = multiplier
             this.attackColor = color(255, 0, 0)
             this.owner = "rightSide"
-        } else if (castle === castle1) {
+        } else if (castle === leftCastle) {
             this.mult = 1
             this.attackColor = color(0, 255, 0)
             this.owner = "leftSide"
@@ -126,15 +126,15 @@ class Circle {
 
         if (this.owner === "leftSide") {
 
-            let castleInRange = abs(this.x - castle2.x) <= this.range
+            let castleInRange = abs(this.x - rightCastle.x) <= this.range
             let towerInRange = enemyTowers[0] && abs(this.x - enemyTowers[0].x) <= this.range
             let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
 
-            enemyCircles.forEach((enemyCircle, j, enemyCircles) => {
-                this.min = abs(this.x - enemyCircle.x)
+            enemyUnits.forEach((enemyUnit, j, enemyUnits) => {
+                this.min = abs(this.x - enemyUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = enemyCircle
+                    this.closestEnemy = enemyUnit
                     if (enemyInRange) {
                         this.target = this.closestEnemy
                     }
@@ -145,22 +145,23 @@ class Circle {
             if (towerInRange) {
                 this.target = enemyTowers[0]
             } else if (!this.target && castleInRange) {
-                this.target = castle2
+                this.target = rightCastle
             }
             if (this.target) {
                 this.attack()
                 this.dealDamage()
             }
         } else if (this.owner === "rightSide") {
+            
             let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
-            let castleInRange = abs(this.x - castle1.x) <= this.range
+            let castleInRange = abs(this.x - leftCastle.x) <= this.range
             let towerInRange = myTowers[0] && abs(this.x - myTowers[0].x) <= this.range
 
-            myCircles.forEach((myCircle, j, myCircles) => {
-                this.min = abs(this.x - myCircle.x)
+            myUnits.forEach((myUnit, j, myUnits) => {
+                this.min = abs(this.x - myUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = myCircle
+                    this.closestEnemy = myUnit
                     if (enemyInRange) {
                         this.target = this.closestEnemy
                     }
@@ -170,7 +171,7 @@ class Circle {
             if (towerInRange) {
                 this.target = myTowers[0]
             } else if (!this.target && castleInRange) {
-                this.target = castle1
+                this.target = leftCastle
 
             }
             if (this.target) {
@@ -181,34 +182,34 @@ class Circle {
     }
 }
 
-const EnemyCircleMaker = () => {
-    this.x = castle2.x + castle2.size
-    this.y = castle2.y + castle2.size / 2
+const EnemyUnitMaker = () => {
+    this.x = rightCastle.x + rightCastle.size
+    this.y = rightCastle.y + rightCastle.size / 2
     if (difficulty != 'Impossible' && difficulty != 'Hard' && enemyCoins >= 150) {
-        enemyCircles.push(new Circle(random(options), castle2))
+        enemyUnits.push(new Unit(random(options), rightCastle))
         enemyCoins -= 150
     } else if (enemyCoins >= 100) {
-        enemyCircles.push(new Circle(random(options), castle2))
+        enemyUnits.push(new Unit(random(options), rightCastle))
         enemyCoins -= 100
     }
 }
-const circleRefresher = () => {
-    myCircles.forEach((myCircle, i, myCircles) => {
-        myCircle.show()
-        myCircle.move()
-        myCircle.pvp()
-        if (myCircle.health <= 0) {
-            myCircles.splice(i, 1)
+const unitRefresher = () => {
+    myUnits.forEach((myUnit, i, myUnits) => {
+        myUnit.show()
+        myUnit.move()
+        myUnit.pvp()
+        if (myUnit.health <= 0) {
+            myUnits.splice(i, 1)
             enemyCoins += 100
 
         }
     })
-    enemyCircles.forEach((enemyCircle, i, enemyCircles) => {
-        enemyCircle.show()
-        enemyCircle.move()
-        enemyCircle.pvp()
-        if (enemyCircle.health <= 0) {
-            enemyCircles.splice(i, 1)
+    enemyUnits.forEach((enemyUnit, i, enemyUnits) => {
+        enemyUnit.show()
+        enemyUnit.move()
+        enemyUnit.pvp()
+        if (enemyUnit.health <= 0) {
+            enemyUnits.splice(i, 1)
             coins += 100
         }
     })

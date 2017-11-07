@@ -1,24 +1,24 @@
 const gameStage = () => {
     if (difficulty) {
         strokeWeight(3)
-        castle1.refresh()
-        castle1.healthDisplay()
+        leftCastle.refresh()
+        leftCastle.healthDisplay()
 
-        castle2.refresh()
-        castle2.healthDisplay()
+        rightCastle.refresh()
+        rightCastle.healthDisplay()
 
-        circleRefresher()
+        unitRefresher()
         towerRefresher()
         setPanels()
 
-        EnemyCircleMaker()
+        EnemyUnitMaker()
 
         if (mouseIsClicked) {
             if (mouseX > 30 &&
                 mouseX < 205 &&
                 mouseY > 230 &&
                 mouseY < 270) {
-                circleMaker(mouseX, mouseY)
+                unitMaker(mouseX, mouseY)
             }
         }
         gainMoney()

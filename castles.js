@@ -45,6 +45,6 @@ class EnemyCastle {
 }
 
 const setCastles = () => {
-    castle1 = new MyCastle()
-    castle2 = new EnemyCastle()
+    leftCastle = new MyCastle()
+    rightCastle = new EnemyCastle()
 }

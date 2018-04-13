@@ -12,12 +12,14 @@ class MyCastle {
         rect(this.x, this.y, this.size, this.size)
         fill(0, 50)
         rect(this.x, this.y, this.size, this.size)
+        return this
     }
     healthDisplay() {
         stroke(0)
         fill(255, 0, 0)
         rect(this.x, this.y + this.size / 2 + this.size / 5, this.healthbarSize, 10)
         this.healthbarSize = map(this.health, 0, 500000, 0, 50)
+        return this
     }
 }
 
@@ -35,12 +37,14 @@ class EnemyCastle {
         rect(this.x, this.y, this.size, this.size)
         fill(0, 50)
         rect(this.x, this.y, this.size, this.size)
+        return this
     }
 
     healthDisplay(){
         fill(255, 0, 0)
         rect(this.x, this.y + this.size / 2 + this.size / 5, this.healthbarSize, 10)
         this.healthbarSize = map(this.health, 0, 500000, 0, 50)
+        return this
     }
 }
 

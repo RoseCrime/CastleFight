@@ -1,11 +1,10 @@
 const gameStage = () => {
     if (difficulty) {
         strokeWeight(3)
-        leftCastle.refresh()
-        leftCastle.healthDisplay()
+        
+        leftCastle.refresh().healthDisplay()
 
-        rightCastle.refresh()
-        rightCastle.healthDisplay()
+        rightCastle.refresh().healthDisplay()
 
         unitRefresher()
         towerRefresher()

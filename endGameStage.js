@@ -25,11 +25,11 @@ const endGameStage = () => {
         }
 
         //stop
-        myUnits.forEach((myUnit) => {
+        myUnits.forEach(myUnit => {
             myUnit.damage = 0
             myUnit.speed = 0
         })
-        enemyUnits.forEach((enemyUnit) => {
+        enemyUnits.forEach(enemyUnit => {
             enemyUnit.damage = 0
             enemyUnit.speed = 0
         })

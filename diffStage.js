@@ -1,4 +1,4 @@
-let difficulty,multiplier
+let difficulty, multiplier
 let diffOptions = []
 let txt, txtSize, txtWidth, x, y
 
@@ -43,10 +43,7 @@ const diffText = () => {
 const diffStage = () => {
     if (!difficulty) {
         diffText()
-        diffOptions.forEach((diffOption) => {
-            diffOption.show()
-            diffOption.choiseDiff()
-        })
+        diffOptions.forEach(diffOption => diffOption.show().choiseDiff())
     }
 }
 
@@ -72,6 +69,7 @@ class DiffBlock {
             (mouseX >= (this.x - (this.txtWidth / 2))) &&
             (mouseY <= (this.y + (this.txtSize / 2))) &&
             (mouseY >= (this.y - (this.txtSize / 2)))
+
         )
         if (this.mouseInArea) {
             fill(0)
@@ -82,6 +80,7 @@ class DiffBlock {
         stroke(255)
         noFill()
         rect(this.x, this.y, this.txtWidth * 1.5, this.txtSize * 1.5)
+        return this
     }
 
     choiseDiff() {
@@ -100,5 +99,6 @@ class DiffBlock {
                 reset()
             }
         }
+        return this
     }
 }

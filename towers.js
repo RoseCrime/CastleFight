@@ -24,6 +24,7 @@ class Tower {
         fill(255, 0, 0)
         rect(this.x, this.y + this.towerSize, this.healthbarSize, 10)
         this.healthbarSize = map(this.health, 0, 50000, 0, 50)
+        return this
     }
 
     dealDamage() {
@@ -33,18 +34,18 @@ class Tower {
             line(this.x, this.y, this.closestEnemy.x, this.closestEnemy.y)
             this.closestEnemy.health -= this.damage
         }
-
+        return this
     }
     resetTarget() {
         this.closestEnemy = null
         this.minDist = 200
         this.min = 0
-
+        return this
     }
     pvp() {
         if (this.owner === "leftSide") {
             this.resetTarget()
-            enemyUnits.forEach((enemyUnit, j, enemyUnits) => {
+            enemyUnits.forEach(enemyUnit => {
                 this.min = abs(this.x - enemyUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
@@ -55,7 +56,7 @@ class Tower {
         }
         if (this.owner === "rightSide") {
             this.resetTarget()
-            myUnits.forEach((myUnit, j, myUnits) => {
+            myUnits.forEach(myUnit => {
                 this.min = abs(this.x - myUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
@@ -64,6 +65,7 @@ class Tower {
             })
             this.dealDamage()
         }
+        return this
     }
 }
 
@@ -76,16 +78,14 @@ const setTowers = () => {
 
 const towerRefresher = () => {
     myTowers.forEach((myTower, i, myTowers) => {
-        myTower.show()
-        myTower.pvp()
+        myTower.show().pvp()
         if (myTower.health <= 0) {
             myTowers.splice(i, 1)
             enemyCoins += 1000
         }
     })
     enemyTowers.forEach((enemyTower, i, enemyTowers) => {
-        enemyTower.show()
-        enemyTower.pvp()
+        enemyTower.show().pvp()
 
         if (enemyTower.health <= 0) {
             enemyTowers.splice(i, 1)

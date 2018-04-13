@@ -1,6 +1,8 @@
 let finished = false
 let mouseIsClicked = false
 let frameCounter = 0
+let fs
+
 
 function setup() {
     createCanvas(800, 300)
@@ -10,6 +12,7 @@ function setup() {
     diffOptionsMaker()
     setCastles()
     setTowers()
+
 }
 
 function draw() {
@@ -42,3 +45,4 @@ function reset() {
 function mouseClicked() {
     mouseIsClicked = true
 }
+

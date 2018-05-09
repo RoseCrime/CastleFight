@@ -131,7 +131,7 @@ class Unit {
         if (this.owner === "left") {
 
             let castleInRange = abs(this.x - rightCastle.x) <= this.range
-            let towerInRange = rightTowets[0] && abs(this.x - rightTowets[0].x) <= this.range
+            let towerInRange = rightTowers[0] && abs(this.x - rightTowers[0].x) <= this.range
             let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
 
             rightUnits.forEach(rightUnit => {
@@ -144,7 +144,7 @@ class Unit {
             })
 
             if (towerInRange) {
-                this.target = rightTowets[0]
+                this.target = rightTowers[0]
             } else if (!this.target && castleInRange) {
                 this.target = rightCastle
             }

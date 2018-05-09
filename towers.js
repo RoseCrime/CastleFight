@@ -1,5 +1,5 @@
 let leftTowers = []
-let rightTowets = []
+let rightTowers = []
 
 class Tower {
     constructor(x, y, castle) {
@@ -72,8 +72,8 @@ class Tower {
 const setTowers = () => {
     leftTowers.push(new Tower(200, 150, leftCastle))
     leftTowers.push(new Tower(200, 50, leftCastle))
-    rightTowets.push(new Tower(600, 150, rightCastle))
-    rightTowets.push(new Tower(600, 50, rightCastle))
+    rightTowers.push(new Tower(600, 150, rightCastle))
+    rightTowers.push(new Tower(600, 50, rightCastle))
 }
 
 const towerRefresher = () => {
@@ -84,11 +84,11 @@ const towerRefresher = () => {
             rightCoins += 1000
         }
     })
-    rightTowets.forEach((rightTower, i, rightTowets) => {
+    rightTowers.forEach((rightTower, i, rightTowers) => {
         rightTower.show().pvp()
 
         if (rightTower.health <= 0) {
-            rightTowets.splice(i, 1)
+            rightTowers.splice(i, 1)
             leftCoins += 1000
         }
     })

@@ -27,7 +27,7 @@ function draw() {
 //everything resets on each stage.
 function reset() {
     leftTowers = []
-    rightTowets = []
+    rightTowers = []
     leftUnits = []
     rightUnits = []
     leftCastle = null

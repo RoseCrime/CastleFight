@@ -1,12 +1,12 @@
-let myTowers = []
-let enemyTowers = []
+let leftTowers = []
+let rightTowets = []
 
 class Tower {
     constructor(x, y, castle) {
         if (castle === rightCastle) {
-            this.owner = "rightSide"
+            this.owner = "right"
         } else if (castle === leftCastle) {
-            this.owner = "leftSide"
+            this.owner = "left"
         }
         this.x = x
         this.y = y
@@ -43,24 +43,24 @@ class Tower {
         return this
     }
     pvp() {
-        if (this.owner === "leftSide") {
+        if (this.owner === "left") {
             this.resetTarget()
-            enemyUnits.forEach(enemyUnit => {
-                this.min = abs(this.x - enemyUnit.x)
+            rightUnits.forEach(rightUnit => {
+                this.min = abs(this.x - rightUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = enemyUnit
+                    this.closestEnemy = rightUnit
                 }
             })
             this.dealDamage()
         }
-        if (this.owner === "rightSide") {
+        if (this.owner === "right") {
             this.resetTarget()
-            myUnits.forEach(myUnit => {
-                this.min = abs(this.x - myUnit.x)
+            leftUnits.forEach(leftUnit => {
+                this.min = abs(this.x - leftUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = myUnit
+                    this.closestEnemy = leftUnit
                 }
             })
             this.dealDamage()
@@ -70,26 +70,26 @@ class Tower {
 }
 
 const setTowers = () => {
-    myTowers.push(new Tower(200, 150, leftCastle))
-    myTowers.push(new Tower(200, 50, leftCastle))
-    enemyTowers.push(new Tower(600, 150, rightCastle))
-    enemyTowers.push(new Tower(600, 50, rightCastle))
+    leftTowers.push(new Tower(200, 150, leftCastle))
+    leftTowers.push(new Tower(200, 50, leftCastle))
+    rightTowets.push(new Tower(600, 150, rightCastle))
+    rightTowets.push(new Tower(600, 50, rightCastle))
 }
 
 const towerRefresher = () => {
-    myTowers.forEach((myTower, i, myTowers) => {
-        myTower.show().pvp()
-        if (myTower.health <= 0) {
-            myTowers.splice(i, 1)
-            enemyCoins += 1000
+    leftTowers.forEach((leftTower, i, leftTowers) => {
+        leftTower.show().pvp()
+        if (leftTower.health <= 0) {
+            leftTowers.splice(i, 1)
+            rightCoins += 1000
         }
     })
-    enemyTowers.forEach((enemyTower, i, enemyTowers) => {
-        enemyTower.show().pvp()
+    rightTowets.forEach((rightTower, i, rightTowets) => {
+        rightTower.show().pvp()
 
-        if (enemyTower.health <= 0) {
-            enemyTowers.splice(i, 1)
-            coins += 1000
+        if (rightTower.health <= 0) {
+            rightTowets.splice(i, 1)
+            leftCoins += 1000
         }
     })
 }

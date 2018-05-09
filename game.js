@@ -26,15 +26,15 @@ function draw() {
 
 //everything resets on each stage.
 function reset() {
-    myTowers = []
-    enemyTowers = []
-    myUnits = []
-    enemyUnits = []
+    leftTowers = []
+    rightTowets = []
+    leftUnits = []
+    rightUnits = []
     leftCastle = null
     rightCastle = null
     finished = false
-    coins = 400
-    enemyCoins = 400
+    leftCoins = 400
+    rightCoins = 400
     income = 50
     maxIncome = 500
     setCastles()

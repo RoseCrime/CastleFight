@@ -1,29 +1,29 @@
 let clicked
-let myUnits = []
-let enemyUnits = []
+let leftUnits = []
+let rightUnits = []
 const options = ['Tank', 'Damage', 'Ranged', 'Mix']
 
 
 const unitMaker = (mouseX, mouseY) => {
-    if (coins >= 150) {
+    if (leftCoins >= 150) {
         if (mouseX > 30 && mouseX < 70) {
             clicked = 'Tank'
-            myUnits.push(new Unit(clicked, leftCastle))
-            coins -= 150
+            leftUnits.push(new Unit(clicked, leftCastle))
+            leftCoins -= 150
         } else if (mouseX > 75 && mouseX < 115) {
             clicked = 'Damage'
-            myUnits.push(new Unit(clicked, leftCastle))
-            coins -= 150
+            leftUnits.push(new Unit(clicked, leftCastle))
+            leftCoins -= 150
 
         } else if (mouseX > 120 && mouseX < 160) {
             clicked = 'Ranged'
-            myUnits.push(new Unit(clicked, leftCastle))
-            coins -= 150
+            leftUnits.push(new Unit(clicked, leftCastle))
+            leftCoins -= 150
 
         } else if (mouseX > 165 && mouseX < 205) {
             clicked = 'Mix'
-            myUnits.push(new Unit(clicked, leftCastle))
-            coins -= 150
+            leftUnits.push(new Unit(clicked, leftCastle))
+            leftCoins -= 150
         }
     }
 }
@@ -33,11 +33,11 @@ class Unit {
         if (castle === rightCastle) {
             this.mult = multiplier
             this.attackColor = color(255, 0, 0)
-            this.owner = "rightSide"
+            this.owner = "right"
         } else if (castle === leftCastle) {
             this.mult = 1
             this.attackColor = color(0, 255, 0)
-            this.owner = "leftSide"
+            this.owner = "left"
         }
 
         this.x = castle.x
@@ -77,10 +77,10 @@ class Unit {
         return this
     }
     move() {
-        if (this.owner === "leftSide") {
+        if (this.owner === "left") {
             if (this.moves === true)
                 this.x += this.speed
-        } else if (this.owner === "rightSide") {
+        } else if (this.owner === "right") {
             if (this.moves === true)
                 this.x -= this.speed
         }
@@ -128,25 +128,23 @@ class Unit {
         this.keepMoving()
         this.resetTarget()
 
-        if (this.owner === "leftSide") {
+        if (this.owner === "left") {
 
             let castleInRange = abs(this.x - rightCastle.x) <= this.range
-            let towerInRange = enemyTowers[0] && abs(this.x - enemyTowers[0].x) <= this.range
+            let towerInRange = rightTowets[0] && abs(this.x - rightTowets[0].x) <= this.range
             let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
 
-            enemyUnits.forEach(enemyUnit => {
-                this.min = abs(this.x - enemyUnit.x)
+            rightUnits.forEach(rightUnit => {
+                this.min = abs(this.x - rightUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = enemyUnit
-                    if (enemyInRange) {
-                        this.target = this.closestEnemy
-                    }
+                    this.closestEnemy = rightUnit
+                    if (enemyInRange)this.target = this.closestEnemy     
                 }
             })
 
             if (towerInRange) {
-                this.target = enemyTowers[0]
+                this.target = rightTowets[0]
             } else if (!this.target && castleInRange) {
                 this.target = rightCastle
             }
@@ -154,24 +152,24 @@ class Unit {
                 this.attack()
                 this.dealDamage()
             }
-        } else if (this.owner === "rightSide") {
+        } else if (this.owner === "right") {
 
             let enemyInRange = this.closestEnemy && abs(this.closestEnemy.x - this.x) <= this.range
             let castleInRange = abs(this.x - leftCastle.x) <= this.range
-            let towerInRange = myTowers[0] && abs(this.x - myTowers[0].x) <= this.range
+            let towerInRange = leftTowers[0] && abs(this.x - leftTowers[0].x) <= this.range
 
-            myUnits.forEach(myUnit => {
-                this.min = abs(this.x - myUnit.x)
+            leftUnits.forEach(leftUnit => {
+                this.min = abs(this.x - leftUnit.x)
                 if (this.min < this.minDist) {
                     this.minDist = this.min
-                    this.closestEnemy = myUnit
+                    this.closestEnemy = leftUnit
                     if (enemyInRange) {
                         this.target = this.closestEnemy
                     }
                 }
             })
             if (towerInRange) {
-                this.target = myTowers[0]
+                this.target = leftTowers[0]
             } else if (!this.target && castleInRange) {
                 this.target = leftCastle
             }
@@ -184,31 +182,30 @@ class Unit {
     }
 }
 
-const EnemyUnitMaker = () => {
+const rightUnitMaker = () => {
     this.x = rightCastle.x + rightCastle.size
     this.y = rightCastle.y + rightCastle.size / 2
-    if (difficulty != 'Impossible' && difficulty != 'Hard' && enemyCoins >= 150) {
-        enemyUnits.push(new Unit(random(options), rightCastle))
-        enemyCoins -= 150
-    } else if (enemyCoins >= 100) {
-        enemyUnits.push(new Unit(random(options), rightCastle))
-        enemyCoins -= 100
+    if (difficulty != 'Impossible' && difficulty != 'Hard' && rightCoins >= 150) {
+        rightUnits.push(new Unit(random(options), rightCastle))
+        rightCoins -= 150
+    } else if (rightCoins >= 100) {
+        rightUnits.push(new Unit(random(options), rightCastle))
+        rightCoins -= 100
     }
 }
 const unitRefresher = () => {
-    myUnits.forEach((myUnit, i, myUnits) => {
-        myUnit.show().move().pvp()
-        if (myUnit.health <= 0) {
-            myUnits.splice(i, 1)
-            enemyCoins += 100
-
+    leftUnits.forEach((leftUnit, i, leftUnits) => {
+        leftUnit.show().move().pvp()
+        if (leftUnit.health <= 0) {
+            leftUnits.splice(i, 1)
+            rightCoins += 100
         }
     })
-    enemyUnits.forEach((enemyUnit, i, enemyUnits) => {
-        enemyUnit.show().move().pvp()
-        if (enemyUnit.health <= 0) {
-            enemyUnits.splice(i, 1)
-            coins += 100
+    rightUnits.forEach((rightUnit, i, rightUnits) => {
+        rightUnit.show().move().pvp()
+        if (rightUnit.health <= 0) {
+            rightUnits.splice(i, 1)
+            leftCoins += 100
         }
     })
 

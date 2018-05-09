@@ -9,16 +9,15 @@ class Castle {
             this.x = 14 / 15 * width
         }
 
-
         this.y = 100
         this.size = 50
         this.health = 500000
         this.hpBarSize = 50
     }
     refresh() {
+        stroke(0)
+        fill(220, 150)
         if (this.side == 'left') {
-            stroke(0)
-            fill(220, 150)
             rect(this.x, this.y, this.size, this.size)
 
             //health display
@@ -27,10 +26,7 @@ class Castle {
             this.hpBarSize = map(this.health, 0, 500000, 0, 50)
         }
         if (this.side == 'right') {
-            stroke(0)
-            fill(220, 150)
             rect(this.x, this.y, this.size, this.size)
-
 
             //health display
             fill(255, 0, 0)

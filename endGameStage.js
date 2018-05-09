@@ -32,18 +32,18 @@ const endGameStage = () => {
         }
 
         //stop
-        myUnits.forEach(myUnit => {
-            myUnit.damage = 0
-            myUnit.speed = 0
+        leftUnits.forEach(leftUnit => {
+            leftUnit.damage = 0
+            leftUnit.speed = 0
         })
-        enemyUnits.forEach(enemyUnit => {
-            enemyUnit.damage = 0
-            enemyUnit.speed = 0
+        rightUnits.forEach(rightUnit => {
+            rightUnit.damage = 0
+            rightUnit.speed = 0
         })
 
         income = 0
-        coins = 0
-        enemyCoins = 0
+        leftCoins = 0
+        rightCoins = 0
 
         if (mouseIsClicked) {
             if ((mouseX >= 295) &&

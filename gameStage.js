@@ -1,6 +1,5 @@
 const gameStage = () => {
     if (difficulty) {
-        strokeWeight(3)
 
         leftCastle.refresh()
         rightCastle.refresh()
@@ -9,7 +8,7 @@ const gameStage = () => {
         towerRefresher()
         setPanels()
 
-        EnemyUnitMaker()
+        rightUnitMaker()
 
         if (mouseIsClicked) {
             if (mouseX > 30 &&
@@ -46,7 +45,7 @@ const setPanels = () => {
     ellipse(185, 250, 40)
     text('Mix', 185, 295)
     textSize(20)
-    if (coins >= 150) {
+    if (leftCoins >= 150) {
         fill(0, 255, 150)
     } else {
         fill(255, 0, 0)
@@ -56,10 +55,10 @@ const setPanels = () => {
     //coinPanel
     stroke(0)
     fill(255, 215, 0)
-    text('Coins:' + coins, width / 12, 25)
+    text('Coins:' + leftCoins, width / 12, 25)
     stroke(0)
     fill(255, 215, 0)
-    text('Coins:' + enemyCoins, width - (width / 12), 25)
+    text('Coins:' + rightCoins, width - (width / 12), 25)
 
     //diffPanel
     fill(255, 215, 0)
@@ -72,13 +71,13 @@ const setPanels = () => {
 
 //Income
 
-let coins, income
+let leftCoins, income
 
 const gainMoney = () => {
     if (frameCounter - 5 * frameRate() >= 0) {
         frameCounter = 0
-        coins += income
-        enemyCoins += income
+        leftCoins += income
+        rightCoins += income
         if (income <= maxIncome) {
             income += 10
         }

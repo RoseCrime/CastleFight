@@ -1,14 +1,21 @@
 const endGameStage = () => {
-    textSize(150)
-    if (leftCastle.health <= 0) {
-        fill(255, 150, 150)
-        text('You lost', width / 2, 175)
-        finished = true
-    } else if (rightCastle.health <= 0) {
-        fill(50, 255, 150)
-        text('Victory!', width / 2, 175)
+
+    if (leftCastle.health <= 0 || rightCastle.health <= 0) {
+        textSize(150)
+        
+        if (leftCastle.health <= 0) {
+            fill(255, 150, 150)
+            text('You lost', width / 2, 175)
+
+        } else if (rightCastle.health <= 0) {
+            fill(50, 255, 150)
+            text('Victory!', width / 2, 175)
+        }
+        
         finished = true
     }
+
+    //New Game text
     if (finished === true) {
         textSize(100)
         fill(0)
@@ -20,7 +27,7 @@ const endGameStage = () => {
 
         //new game hover
         if (finished === true && mouseX >= 295 && mouseX < 295 + 500 && mouseY >= 215 && mouseY <= 215 + 80) {
-            fill(50, 255, 200)
+            fill(100, 150, 200)
             text('New Game', 2 / 3 * width, height - 10)
         }
 

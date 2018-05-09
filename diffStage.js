@@ -64,13 +64,12 @@ class DiffBlock {
     show() {
         fill(this.color)
         stroke(this.stroke)
-        this.mouseInArea = (
+        this.mouseInArea = 
             (mouseX <= (this.x + (this.txtWidth / 2))) &&
             (mouseX >= (this.x - (this.txtWidth / 2))) &&
             (mouseY <= (this.y + (this.txtSize / 2))) &&
             (mouseY >= (this.y - (this.txtSize / 2)))
-
-        )
+        
         if (this.mouseInArea) {
             fill(0)
             stroke(255)

@@ -12,7 +12,6 @@ function setup() {
     diffOptionsMaker()
     setCastles()
     setTowers()
-
 }
 
 function draw() {

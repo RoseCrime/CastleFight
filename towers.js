@@ -12,18 +12,18 @@ class Tower {
         this.y = y
         this.towerSize = 25
         this.health = 50000
-        this.healthbarSize = 50
+        this.hpBarSize = 50
         this.range = 200
         this.damage = 50
     }
 
     show() {
         stroke(0)
-        fill(255)
+        fill(220,200)
         ellipse(this.x, this.y, this.towerSize)
         fill(255, 0, 0)
-        rect(this.x, this.y + this.towerSize, this.healthbarSize, 10)
-        this.healthbarSize = map(this.health, 0, 50000, 0, 50)
+        rect(this.x, this.y + this.towerSize, this.hpBarSize, 10)
+        this.hpBarSize = map(this.health, 0, 50000, 0, 50)
         return this
     }
 
